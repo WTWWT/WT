@@ -212,7 +212,7 @@ angular.module('myApp.directives', ['myApp.filters'])
     }
 
     function updateMessageSignature ($scope, element, message) {
-    	var postAuthor = message.post_author || (message.fwd_from && message.fwd_from.post_author && userId)
+    	var postAuthor = message.post_author || ( from_id  )
 		
       if (!postAuthor) {
 		  $('.im_message_sign', element).hide()     
@@ -222,6 +222,7 @@ angular.module('myApp.directives', ['myApp.filters'])
       var html = RichTextProcessor.wrapRichText(postAuthor, {noLinks: true, noLinebreaks: true})
       $('.im_message_sign', element).html('<span class="im_message_sign_link">' + html.valueOf() + '</span>')
     }
+	
 
     function updateMessageKeyboard ($scope, element, message) {
       if (!message.reply_markup ||
