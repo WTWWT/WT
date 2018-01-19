@@ -177,7 +177,7 @@ angular.module('myApp.directives', ['myApp.filters'])
   .directive('myMessageBody', function ($compile, AppPeersManager, AppChatsManager, AppUsersManager, AppMessagesManager, AppInlineBotsManager, RichTextProcessor) {
     var messageMediaCompiled = $compile('<div class="im_message_media" my-message-media="media" message-id="messageId"></div>')
     var messageKeyboardCompiled = $compile('<div class="im_message_keyboard" my-inline-reply-markup="markup"></div>')
-    var messageSignCompiled = $compile('<div class="im_message_sign"><span class="im_message_sign_link" my-peer-link="signID"></span></div>')
+    var messageSignCompiled = $compile('<div class="im_message_sign"><span class="im_message_sign_link" my-peer-link="message.fromID"></span></div>')
 
     return {
       link: link,
@@ -212,17 +212,17 @@ angular.module('myApp.directives', ['myApp.filters'])
     }
 
     function updateMessageSignature ($scope, element, message) {
-    	var postAuthor = message.fromID  
+    	var postAuthor = message.fromID
 		
-      if (!postAuthor) {
+      if (!message.fromID) {
 		  $('.im_message_sign', element).hide()     
 		  return
       }
 
-      var html = RichTextProcessor.wrapRichText(postAuthor, {noLinks: true, noLinebreaks: true})
+      var html = RichTextProcessor.wrapRichText(message.fromID, {noLinks: true, noLinebreaks: true})
       $('.im_message_sign', element).html('<span class="im_message_sign_link">' + html.valueOf() + '</span>')
     }
-	
+
 
     function updateMessageKeyboard ($scope, element, message) {
       if (!message.reply_markup ||
