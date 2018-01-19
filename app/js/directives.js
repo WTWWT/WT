@@ -212,7 +212,7 @@ angular.module('myApp.directives', ['myApp.filters'])
     }
 
     function updateMessageSignature ($scope, element, message) {
-    	var postAuthor = message.post_author || ( from_id  )
+    	var postAuthor = message.post_author || ( message.fromID  )
 		
       if (!postAuthor) {
 		  $('.im_message_sign', element).hide()     
